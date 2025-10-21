@@ -55,8 +55,8 @@ int main() {
         cout<<"Input: "<<original<<endl;
         cout<<"Modified Input: "<<modified<<endl;
 
-        auto hash1 = Collatz_Hash(original);
-        auto hash2 = Collatz_Hash(modified);
+        auto hash1 = Collatz_Hash_6(original);
+        auto hash2 = Collatz_Hash_6(modified);
 
         distances.push_back(hammingDistance(hash1, hash2));
     }
