@@ -114,9 +114,6 @@ string CollatzHash512Padding(string input)
 
     finalPlainText += bitset<CollatzHash_512_INPUT_REPRESENTATION_LENGTH>(plainTextSize).to_string();
 
-    cout << "Plain text length = " << plainTextSize << endl;
-    cout << "Plain text length after padding = " << finalPlainText.length() << endl
-         << endl;
 
     return finalPlainText;
 }
@@ -139,9 +136,6 @@ string Collatz_Hash_6(string inp)
     vector<int> shuffled10 = deterministic_shuffle(key, 10);
 
     string paddedInput = CollatzHash512Padding(input);
-
-    // cout << "Padded Input:" << " " << paddedInput << endl
-    //      << endl;
 
     for (int n = 0; n < paddedInput.size(); n += BLOCK_SIZE)
     {
@@ -179,13 +173,6 @@ string Collatz_Hash_6(string inp)
 
         for (int j = 0; j < WORD_COUNT; ++j)
             W[j] = getUllFromString(currentBlock.substr(j, WORD_LENGTH));
-        
-
-        // for (int j = 0; j < 32; ++j)
-        // {
-        //     cout << "Word-" << j << " : " << W[j] << " ";
-        // }
-        // cout << endl;
 
      
 
@@ -211,10 +198,9 @@ string Collatz_Hash_6(string inp)
         for (int w = 0; w <= 6; w++)
         {
 
-            uint16_t x = (X[shuffled32[w]%16]>>(48-w%2*16)&0xFFFF);
+            uint16_t x = ((X[shuffled32[w]%16]>>(16-((w%2))*16))&0xFFFF);
 
             uint16_t x_=x;    
-            // cout << "We take 'x' as X[" << i << "] value is :" << x << endl;
 
             while (x >= 2) // Chnage from CH-1.
             {
@@ -319,15 +305,15 @@ string Collatz_Hash_6(string inp)
         }
 
 
-        if(m+BLOCK_SIZE==paddedInput.size())
+        if(n+BLOCK_SIZE==paddedInput.size())
         {
-                T1 = (a ^ W[m%32]);
-                b = a ^ W[(m+5)%32];
+                T1 = (a ^ W[n%32]);
+                b = a ^ W[(n+5)%32];
                 c = b ^ T1;
                 d = c ^ rotl64(T1, 29);
                 e = d ^ rotl64(T1, 41);
-                T2 = (e ^ W[(m+1)%32]);
-                f = e ^ W[(m+7)%32];
+                T2 = (e ^ W[(n+1)%32]);
+                f = e ^ W[(n+7)%32];
                 g = f ^ T2;
                 h = g ^ rotl64(T2, 53);
                 a = h ^ rotl64(T2, 13);
@@ -349,25 +335,12 @@ string Collatz_Hash_6(string inp)
     }
 
 
-    cout<<"Digest Size: ";
-    int S;
-    cin>>S;
-
-    if(S!=256 && S!=384 && S!=512)
-    cout<<"Invalid input, it should be 256 or 384 or 512 "<<endl;
+    int S = 256;
 
 
     string combined;
     for (int i = 0; i < S/64; ++i)
         combined += toHexString(buffers[shuffled10[i]]);
-
-    cout<<endl;
-    cout<<endl;    
-    cout << "Output of Collatz Hash Algorithm: " << endl;
-
-    cout << combined << endl;
-    cout<<endl; 
-    cout<<endl; 
 
     return combined;
 }

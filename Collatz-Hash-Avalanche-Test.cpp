@@ -5,7 +5,7 @@
 #include <bitset>
 #include <numeric>
 #include <cmath>
-#include "Collatz Hash\Collatz-Hash.h"
+#include "Collatz Hash/Collatz-Hash.h"
 
 using namespace std;
 

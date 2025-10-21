@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "Collatz Hash\Collatz-Hash.h"
+#include "Collatz Hash/Collatz-Hash.h"
 using namespace std;
 
 // ===== Your Hash Function Declaration =====

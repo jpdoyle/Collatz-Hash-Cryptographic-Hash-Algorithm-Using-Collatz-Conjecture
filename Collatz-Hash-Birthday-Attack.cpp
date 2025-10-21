@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include "Collatz Hash\Collatz-Hash.h"
+#include "Collatz Hash/Collatz-Hash.h"
 
 using namespace std;
 
@@ -26,15 +26,15 @@ string randomString(size_t length) {
 int main() {
     unordered_map<string, string> hashMap;
     const int maxAttempts = 1e9;
-    const int hashBits = 512;  // You can set to 384 or 256, etc.
+    const int hashBits = 90;  // You can set to 384 or 256, etc.
     const size_t inputLength = 4;
 
     cout << "Birthday Attack Simulation on 512-bit Hash\n";
     cout << "Truncating hash to " << hashBits << " bits for collision test\n";
 
     for (int i = 0; i < maxAttempts; ++i) {
-        string input = randomString(inputLength);
-        string fullHash = Collatz_Hash(input);
+        string input = to_string(i);
+        string fullHash = Collatz_Hash_6(input);
         string shortHash = truncatedHash(fullHash, hashBits);
 
         if (hashMap.count(shortHash) && hashMap[shortHash]!=input) {
